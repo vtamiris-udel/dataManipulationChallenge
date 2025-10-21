@@ -1,0 +1,1293 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.33">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Data Manipulation Challenge</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="index_files/libs/clipboard/clipboard.min.js"></script>
+<script src="index_files/libs/quarto-html/quarto.js" type="module"></script>
+<script src="index_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="index_files/libs/quarto-html/popper.min.js"></script>
+<script src="index_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="index_files/libs/quarto-html/anchor.min.js"></script>
+<link href="index_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="index_files/libs/quarto-html/quarto-syntax-highlighting-ea385d0e468b0dd5ea5bf0780b1290d9.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="index_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="index_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="index_files/libs/bootstrap/bootstrap-bb462d781dde1847d9e3ccf7736099dd.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+
+
+</head>
+
+<body class="quarto-light">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="index.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></div>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Data Manipulation Challenge</h1>
+<p class="subtitle lead">A Mental Model for Method Chaining in Pandas</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="data-manipulation-challenge---a-mental-model-for-method-chaining-in-pandas" class="level1">
+<h1>🔗 Data Manipulation Challenge - A Mental Model for Method Chaining in Pandas</h1>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+📊 Challenge Requirements In Section <a href="#student-analysis-section">Student Analysis Section</a>
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li>Complete all discussion questions for the seven mental models (plus some extra requirements for higher grades)</li>
+</ul>
+</div>
+</div>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+🎯 Note on Python Usage
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Recommended Workflow: Use Your Existing Virtual Environment</strong> If you completed the Tech Setup Challenge Part 2, you already have a virtual environment set up! Here’s how to use it for this new challenge:</p>
+<ol type="1">
+<li><strong>Clone this new challenge repository</strong> (see Getting Started section below)</li>
+<li><strong>Open the cloned repository in Cursor</strong></li>
+<li><strong>Set this project to use your existing Python interpreter:</strong>
+<ul>
+<li>Press <code>Ctrl+Shift+P</code> → “Python: Select Interpreter”</li>
+<li>Navigate to and choose the interpreter from your existing virtual environment (e.g., <code>your-previous-project/venv/Scripts/python.exe</code>)</li>
+</ul></li>
+<li><strong>Activate the environment in your terminal:</strong>
+<ul>
+<li>Open terminal in Cursor (`Ctrl + ``)</li>
+<li>Navigate to your previous project folder where you have the <code>venv</code> folder</li>
+<li><strong>💡 Pro tip:</strong> You can quickly navigate by typing <code>cd</code> followed by dragging the folder from your file explorer into the terminal</li>
+<li>Activate using the appropriate command for your system:
+<ul>
+<li><strong>Windows Command Prompt:</strong> <code>venv\Scripts\activate</code></li>
+<li><strong>Windows PowerShell:</strong> <code>.\venv\Scripts\Activate.ps1</code></li>
+<li><strong>Mac/Linux:</strong> <code>source venv/bin/activate</code></li>
+</ul></li>
+<li>You should see <code>(venv)</code> at the beginning of your terminal prompt</li>
+</ul></li>
+<li><strong>Install additional packages if needed:</strong> <code>pip install pandas numpy matplotlib seaborn</code></li>
+</ol>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+⚠️ Cloud Storage Warning
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Avoid using Google Drive, OneDrive, or other cloud storage for Python projects!</strong> These services can cause issues with: - Package installations failing due to file locking - Virtual environment corruption - Slow performance during pip operations</p>
+<p><strong>Best practice:</strong> Keep your Python projects in a local folder like <code>C:\Users\YourName\Documents\</code> or <code>~/Documents/</code> instead of cloud-synced folders.</p>
+</div>
+</div>
+<p><strong>Alternative: Create a New Virtual Environment</strong> If you prefer a fresh environment, follow the Quarto documentation: <a href="https://quarto.org/docs/projects/virtual-environments.html">https://quarto.org/docs/projects/virtual-environments.html</a>. Be sure to follow the instructions to activate the environment, set it up as your default Python interpreter for the project, and install the necessary packages (e.g.&nbsp;pandas) for this challenge. For installing the packages, you can use the <code>pip install -r requirements.txt</code> command since you already have the requirements.txt file in your project. Some steps do take a bit of time, so be patient.</p>
+<p><strong>Why This Works:</strong> Virtual environments are portable - you can use the same environment across multiple projects, and Cursor automatically activates it when you select the interpreter!</p>
+</div>
+</div>
+<section id="the-problem-mastering-data-manipulation-through-method-chaining" class="level2">
+<h2 class="anchored" data-anchor-id="the-problem-mastering-data-manipulation-through-method-chaining">The Problem: Mastering Data Manipulation Through Method Chaining</h2>
+<p><strong>Core Question:</strong> How can we efficiently manipulate datasets using <code>pandas</code> method chaining to answer complex business questions?</p>
+<p><strong>The Challenge:</strong> Real-world data analysis requires combining multiple data manipulation techniques in sequence. Rather than creating intermediate variables at each step, method chaining allows us to write clean, readable code that flows logically from one operation to the next.</p>
+<p><strong>Our Approach:</strong> We’ll work with ZappTech’s shipment data to answer critical business questions about service levels and cross-category orders, using the seven mental models of data manipulation through pandas method chaining.</p>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+⚠️ AI Partnership Required
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>This challenge pushes boundaries intentionally. You’ll tackle problems that normally require weeks of study, but with Cursor AI as your partner (and your brain keeping it honest), you can accomplish more than you thought possible.</p>
+<p><strong>The new reality:</strong> The four stages of competence are Ignorance → Awareness → Learning → Mastery. AI lets us produce Mastery-level work while operating primarily in the Awareness stage. I focus on awareness training, you leverage AI for execution, and together we create outputs that used to require years of dedicated study.</p>
+</div>
+</div>
+</section>
+<section id="the-seven-mental-models-of-data-manipulation" class="level2">
+<h2 class="anchored" data-anchor-id="the-seven-mental-models-of-data-manipulation">The Seven Mental Models of Data Manipulation</h2>
+<p>The seven most important ways we manipulate datasets are:</p>
+<ol type="1">
+<li><strong>Assign:</strong> Add new variables with calculations and transformations</li>
+<li><strong>Subset:</strong> Filter data based on conditions or select specific columns</li>
+<li><strong>Drop:</strong> Remove unwanted variables or observations</li>
+<li><strong>Sort:</strong> Arrange data by values or indices</li>
+<li><strong>Aggregate:</strong> Summarize data using functions like mean, sum, count</li>
+<li><strong>Merge:</strong> Combine information from multiple datasets</li>
+<li><strong>Split-Apply-Combine:</strong> Group data and apply functions within groups</li>
+</ol>
+</section>
+<section id="data-and-business-context" class="level2">
+<h2 class="anchored" data-anchor-id="data-and-business-context">Data and Business Context</h2>
+<p>We analyze ZappTech’s shipment data, which contains information about product deliveries across multiple categories. This dataset is ideal for our analysis because:</p>
+<ul>
+<li><strong>Real Business Questions:</strong> CEO wants to understand service levels and cross-category shopping patterns</li>
+<li><strong>Multiple Data Sources:</strong> Requires merging shipment data with product category information</li>
+<li><strong>Complex Relationships:</strong> Service levels may vary by product category, and customers may order across categories</li>
+<li><strong>Method Chaining Practice:</strong> Perfect for demonstrating all seven mental models in sequence</li>
+</ul>
+</section>
+<section id="data-loading-and-initial-exploration" class="level2">
+<h2 class="anchored" data-anchor-id="data-loading-and-initial-exploration">Data Loading and Initial Exploration</h2>
+<p>Let’s start by loading the ZappTech shipment data and understanding what we’re working with.</p>
+<div id="load-data" class="cell" data-message="false" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> datetime <span class="im">import</span> datetime, timedelta</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the shipment data</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>shipments_df <span class="op">=</span> pd.read_csv(</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">"https://raw.githubusercontent.com/flyaflya/persuasive/main/shipments.csv"</span>, </span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    parse_dates<span class="op">=</span>[<span class="st">'plannedShipDate'</span>, <span class="st">'actualShipDate'</span>]</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Load product line data</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>product_line_df <span class="op">=</span> pd.read_csv(</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>    <span class="st">"https://raw.githubusercontent.com/flyaflya/persuasive/main/productLine.csv"</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Reduce dataset size for faster processing (4,000 rows instead of 96,805 rows)</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>shipments_df <span class="op">=</span> shipments_df.head(<span class="dv">4000</span>)</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Shipments data shape:"</span>, shipments_df.shape)</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Shipments data columns:"</span>, shipments_df.columns.tolist())</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">First few rows of shipments data:"</span>)</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(shipments_df.head(<span class="dv">10</span>))</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">"</span> <span class="op">+</span> <span class="st">"="</span><span class="op">*</span><span class="dv">50</span>)</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Product line data shape:"</span>, product_line_df.shape)</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Product line data columns:"</span>, product_line_df.columns.tolist())</span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">First few rows of product line data:"</span>)</span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(product_line_df.head(<span class="dv">10</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Shipments data shape: (4000, 5)
+
+Shipments data columns: ['shipID', 'plannedShipDate', 'actualShipDate', 'partID', 'quantity']
+
+First few rows of shipments data:
+   shipID plannedShipDate actualShipDate       partID  quantity
+0   10001      2013-11-06     2013-10-04  part92b16c5         6
+1   10002      2013-10-15     2013-10-04   part66983b         2
+2   10003      2013-10-25     2013-10-07  part8e36f25         1
+3   10004      2013-10-14     2013-10-08  part30f5de0         1
+4   10005      2013-10-14     2013-10-08  part9d64d35         6
+5   10006      2013-10-14     2013-10-08  part6cd6167        15
+6   10007      2013-10-14     2013-10-08  parta4d5fd1         2
+7   10008      2013-10-14     2013-10-08  part08cadf5         1
+8   10009      2013-10-14     2013-10-08  part5cc4989        10
+9   10010      2013-10-14     2013-10-08  part912ae4c         1
+
+==================================================
+Product line data shape: (11997, 3)
+
+Product line data columns: ['partID', 'productLine', 'prodCategory']
+
+First few rows of product line data:
+        partID productLine prodCategory
+0  part00005ba      line4c      Liquids
+1  part000b57d      line61     Machines
+2  part00123bf      linec1  Marketables
+3  part0021fc9      line61     Machines
+4  part0027e86      line2f     Machines
+5  part002ed95      line4c      Liquids
+6  part0030856      lineb8     Machines
+7  part0033dfd      line49      Liquids
+8  part0037a2a      linea3  Marketables
+9  part003caee      linea3  Marketables</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+💡 Understanding the Data
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Shipments Data:</strong> Contains individual line items for each shipment, including: - <code>shipID</code>: Unique identifier for each shipment - <code>partID</code>: Product identifier - <code>plannedShipDate</code>: When the shipment was supposed to go out - <code>actualShipDate</code>: When it actually shipped - <code>quantity</code>: How many units were shipped</p>
+<p><strong>Product Category and Line Data:</strong> Contains product category information: - <code>partID</code>: Links to shipments data - <code>productLine</code>: The category each product belongs to - <code>prodCategory</code>: The category each product belongs to</p>
+<p><strong>Business Questions We’ll Answer:</strong> 1. Does service level (on-time shipments) vary across product categories? 2. How often do orders include products from more than one category?</p>
+</div>
+</div>
+</section>
+<section id="the-seven-mental-models-a-progressive-learning-journey" class="level2">
+<h2 class="anchored" data-anchor-id="the-seven-mental-models-a-progressive-learning-journey">The Seven Mental Models: A Progressive Learning Journey</h2>
+<p>Now we’ll work through each of the seven mental models using method chaining, starting simple and building complexity.</p>
+<section id="assign-adding-new-variables" class="level3">
+<h3 class="anchored" data-anchor-id="assign-adding-new-variables">1. Assign: Adding New Variables</h3>
+<p><strong>Mental Model:</strong> Create new columns with calculations and transformations.</p>
+<p>Let’s start by calculating whether each shipment was late:</p>
+<div id="mental-model-1-assign" class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Simple assignment - calculate if shipment was late</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>shipments_with_lateness <span class="op">=</span> (</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    shipments_df</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    .assign(</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>        is_late<span class="op">=</span><span class="kw">lambda</span> df: df[<span class="st">'actualShipDate'</span>] <span class="op">&gt;</span> df[<span class="st">'plannedShipDate'</span>],</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>        days_late<span class="op">=</span><span class="kw">lambda</span> df: (df[<span class="st">'actualShipDate'</span>] <span class="op">-</span> df[<span class="st">'plannedShipDate'</span>]).dt.days</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Added lateness calculations:"</span>)</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(shipments_with_lateness[[<span class="st">'shipID'</span>, <span class="st">'plannedShipDate'</span>, <span class="st">'actualShipDate'</span>, <span class="st">'is_late'</span>, <span class="st">'days_late'</span>]].head())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Added lateness calculations:
+   shipID plannedShipDate actualShipDate  is_late  days_late
+0   10001      2013-11-06     2013-10-04    False        -33
+1   10002      2013-10-15     2013-10-04    False        -11
+2   10003      2013-10-25     2013-10-07    False        -18
+3   10004      2013-10-14     2013-10-08    False         -6
+4   10005      2013-10-14     2013-10-08    False         -6</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+💡 Method Chaining Tip for New Python Users
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Why use <code>lambda df:</code>?</strong> When chaining methods, we need to reference the current state of the dataframe. The <code>lambda df:</code> tells pandas “use the current dataframe in this calculation.” Without it, pandas would look for a variable called <code>df</code> that doesn’t exist.</p>
+<p><strong>Alternative approach:</strong> You could also write this as separate steps, but method chaining keeps related operations together and makes the code more readable.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+🤔 Discussion Questions: Assign Mental Model
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Question 1: Data Types and Date Handling</strong> - What is the <code>dtype</code> of the <code>actualShipDate</code> series? How can you find out using code? - Why is it important that both <code>actualShipDate</code> and <code>plannedShipDate</code> have the same data type for comparison?</p>
+<p><strong>Question 2: String vs Date Comparison</strong> - Can you give an example where comparing two dates as strings would yield unintuitive results, e.g.&nbsp;what happens if you try to compare “04-11-2025” and “05-20-2024” as strings vs as dates?</p>
+<p><strong>Question 3: Debug This Code</strong></p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># This code has an error - can you spot it?</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>shipments_with_lateness <span class="op">=</span> (</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    shipments_df</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    .assign(</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>        is_late<span class="op">=</span><span class="kw">lambda</span> df: df[<span class="st">'actualShipDate'</span>] <span class="op">&gt;</span> df[<span class="st">'plannedShipDate'</span>],</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>        days_late<span class="op">=</span><span class="kw">lambda</span> df: (df[<span class="st">'actualShipDate'</span>] <span class="op">-</span> df[<span class="st">'plannedShipDate'</span>]).dt.days,</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>        lateStatement<span class="op">=</span><span class="st">"Darn Shipment is Late"</span> <span class="cf">if</span> shipments_df[<span class="st">'is_late'</span>] <span class="cf">else</span> <span class="st">"Shipment is on Time"</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>What’s wrong with the <code>lateStatement</code> assignment and how would you fix it?</p>
+</div>
+</div>
+<section id="briefly-give-answers-to-the-discussion-questions-in-this-section" class="level4">
+<h4 class="anchored" data-anchor-id="briefly-give-answers-to-the-discussion-questions-in-this-section">Briefly Give Answers to the Discussion Questions In This Section</h4>
+<blockquote class="blockquote">
+<p>Replace this with your answers to the discussion questions</p>
+</blockquote>
+</section>
+</section>
+<section id="subset-querying-rows-and-filtering-columns" class="level3">
+<h3 class="anchored" data-anchor-id="subset-querying-rows-and-filtering-columns">2. Subset: Querying Rows and Filtering Columns</h3>
+<p><strong>Mental Model:</strong> Query rows based on conditions and filter to keep specific columns.</p>
+<p>Let’s query for only late shipments and filter to keep the columns we need:</p>
+<div id="mental-model-2-subset" class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Query rows for late shipments and filter to keep specific columns</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>late_shipments <span class="op">=</span> (</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    shipments_with_lateness</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    .query(<span class="st">'is_late == True'</span>)  <span class="co"># Query rows where is_late is True</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    .<span class="bu">filter</span>([<span class="st">'shipID'</span>, <span class="st">'partID'</span>, <span class="st">'plannedShipDate'</span>, <span class="st">'actualShipDate'</span>, <span class="st">'days_late'</span>])  <span class="co"># Filter to keep specific columns</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Found </span><span class="sc">{</span><span class="bu">len</span>(late_shipments)<span class="sc">}</span><span class="ss"> late shipments out of </span><span class="sc">{</span><span class="bu">len</span>(shipments_with_lateness)<span class="sc">}</span><span class="ss"> total"</span>)</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Late shipments sample:"</span>)</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(late_shipments.head())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Found 456 late shipments out of 4000 total
+
+Late shipments sample:
+     shipID       partID plannedShipDate actualShipDate  days_late
+776   10192  part0164a70      2013-10-09     2013-10-14          5
+777   10192  part9259836      2013-10-09     2013-10-14          5
+778   10192  part4526c73      2013-10-09     2013-10-14          5
+779   10192  partbb47e81      2013-10-09     2013-10-14          5
+780   10192  part008482f      2013-10-09     2013-10-14          5</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+🔍 Understanding the Methods
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li><strong><code>.query()</code></strong>: Query rows based on conditions (like SQL WHERE clause)</li>
+<li><strong><code>.filter()</code></strong>: Filter to keep specific columns by name</li>
+<li><strong>Alternative</strong>: You could use <code>.loc[]</code> for more complex row querying, but <code>.query()</code> is often more readable</li>
+</ul>
+</div>
+</div>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+🤔 Discussion Questions: Subset Mental Model
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Question 1: Query vs Boolean Indexing</strong> - What’s the difference between using <code>.query('is_late == True')</code> and <code>[df['is_late'] == True]</code>? - Which approach is more readable and why?</p>
+<p><strong>Question 2: Additional Row Querying</strong> - Can you show an example of using a variable like <code>late_threshold</code> to query rows for shipments that are at least <code>late_threshold</code> days late, e.g.&nbsp;what if you wanted to query rows for shipments that are at least 5 days late?</p>
+</div>
+</div>
+<section id="briefly-give-answers-to-the-discussion-questions-in-this-section-1" class="level4">
+<h4 class="anchored" data-anchor-id="briefly-give-answers-to-the-discussion-questions-in-this-section-1">Briefly Give Answers to the Discussion Questions In This Section</h4>
+<blockquote class="blockquote">
+<p>Replace this with your answers to the discussion questions</p>
+</blockquote>
+</section>
+</section>
+<section id="drop-removing-unwanted-data" class="level3">
+<h3 class="anchored" data-anchor-id="drop-removing-unwanted-data">3. Drop: Removing Unwanted Data</h3>
+<p><strong>Mental Model:</strong> Remove columns or rows you don’t need.</p>
+<p>Let’s clean up our data by removing unnecessary columns:</p>
+<div id="mental-model-3-drop" class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a cleaner dataset by dropping unnecessary columns</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>clean_shipments <span class="op">=</span> (</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    shipments_with_lateness</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    .drop(columns<span class="op">=</span>[<span class="st">'quantity'</span>])  <span class="co"># Drop quantity column (not needed for our analysis)</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    .dropna(subset<span class="op">=</span>[<span class="st">'plannedShipDate'</span>, <span class="st">'actualShipDate'</span>])  <span class="co"># Remove rows with missing dates</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Cleaned dataset: </span><span class="sc">{</span><span class="bu">len</span>(clean_shipments)<span class="sc">}</span><span class="ss"> rows, </span><span class="sc">{</span><span class="bu">len</span>(clean_shipments.columns)<span class="sc">}</span><span class="ss"> columns"</span>)</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Remaining columns:"</span>, clean_shipments.columns.tolist())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Cleaned dataset: 4000 rows, 6 columns
+Remaining columns: ['shipID', 'plannedShipDate', 'actualShipDate', 'partID', 'is_late', 'days_late']</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+🤔 Discussion Questions: Drop Mental Model
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Question 1: Drop vs Filter Strategies</strong> - What’s the difference between <code>.drop(columns=['quantity'])</code> and <code>.filter()</code> with a list of columns you want to keep? - When would you choose to drop columns vs filter to keep specific columns?</p>
+<p><strong>Question 2: Handling Missing Data</strong> - What happens if you use <code>.dropna()</code> without specifying <code>subset</code>? How is this different from <code>.dropna(subset=['plannedShipDate', 'actualShipDate'])</code>? - Why might you want to be selective about which columns to check for missing values?</p>
+</div>
+</div>
+<section id="briefly-give-answers-to-the-discussion-questions-in-this-section-2" class="level4">
+<h4 class="anchored" data-anchor-id="briefly-give-answers-to-the-discussion-questions-in-this-section-2">Briefly Give Answers to the Discussion Questions In This Section</h4>
+<blockquote class="blockquote">
+<p>Replace this with your answers to the discussion questions</p>
+</blockquote>
+</section>
+</section>
+<section id="sort-arranging-data" class="level3">
+<h3 class="anchored" data-anchor-id="sort-arranging-data">4. Sort: Arranging Data</h3>
+<p><strong>Mental Model:</strong> Order data by values or indices.</p>
+<p>Let’s sort by lateness to see the worst offenders:</p>
+<div id="mental-model-4-sort" class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Sort by days late (worst first)</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>sorted_by_lateness <span class="op">=</span> (</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    clean_shipments</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    .sort_values(<span class="st">'days_late'</span>, ascending<span class="op">=</span><span class="va">False</span>)  <span class="co"># Sort by days_late, highest first</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    .reset_index(drop<span class="op">=</span><span class="va">True</span>)  <span class="co"># Reset index to be sequential</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Shipments sorted by lateness (worst first):"</span>)</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(sorted_by_lateness[[<span class="st">'shipID'</span>, <span class="st">'partID'</span>, <span class="st">'days_late'</span>, <span class="st">'is_late'</span>]].head(<span class="dv">10</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Shipments sorted by lateness (worst first):
+   shipID       partID  days_late  is_late
+0   10956  partb6208b5         21     True
+1   10956  part04ef2f7         21     True
+2   10956  part4875f85         21     True
+3   10956  partb722d53         21     True
+4   10956  partc979912         21     True
+5   10956  parta27d449         21     True
+6   10956  partc653823         21     True
+7   10956  part82e69e9         21     True
+8   10956  partf23fd1e         21     True
+9   10956  part825873c         21     True</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+🤔 Discussion Questions: Sort Mental Model
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Question 1: Sorting Strategies</strong> - What’s the difference between <code>ascending=False</code> and <code>ascending=True</code> in sorting? - How would you sort by multiple columns (e.g., first by <code>is_late</code>, then by <code>days_late</code>)?</p>
+<p><strong>Question 2: Index Management</strong> - Why do we use <code>.reset_index(drop=True)</code> after sorting? - What happens to the original index when you sort? Why might this be problematic?</p>
+</div>
+</div>
+<section id="briefly-give-answers-to-the-discussion-questions-in-this-section-3" class="level4">
+<h4 class="anchored" data-anchor-id="briefly-give-answers-to-the-discussion-questions-in-this-section-3">Briefly Give Answers to the Discussion Questions In This Section</h4>
+<blockquote class="blockquote">
+<p>Replace this with your answers to the discussion questions</p>
+</blockquote>
+</section>
+</section>
+<section id="aggregate-summarizing-data" class="level3">
+<h3 class="anchored" data-anchor-id="aggregate-summarizing-data">5. Aggregate: Summarizing Data</h3>
+<p><strong>Mental Model:</strong> Calculate summary statistics across groups or the entire dataset.</p>
+<p>Let’s calculate overall service level metrics:</p>
+<div id="mental-model-5-aggregate" class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate overall service level metrics</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>service_metrics <span class="op">=</span> (</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    clean_shipments</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    .agg({</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>        <span class="st">'is_late'</span>: [<span class="st">'count'</span>, <span class="st">'sum'</span>, <span class="st">'mean'</span>],  <span class="co"># Count total, count late, calculate percentage</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>        <span class="st">'days_late'</span>: [<span class="st">'mean'</span>, <span class="st">'max'</span>]  <span class="co"># Average and maximum days late</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>    })</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>    .<span class="bu">round</span>(<span class="dv">3</span>)</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Overall Service Level Metrics:"</span>)</span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(service_metrics)</span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate percentage on-time directly from the data</span></span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>on_time_rate <span class="op">=</span> (<span class="dv">1</span> <span class="op">-</span> clean_shipments[<span class="st">'is_late'</span>].mean()) <span class="op">*</span> <span class="dv">100</span></span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">On-time delivery rate: </span><span class="sc">{</span>on_time_rate<span class="sc">:.1f}</span><span class="ss">%"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Overall Service Level Metrics:
+        is_late  days_late
+count  4000.000        NaN
+sum     456.000        NaN
+mean      0.114     -0.974
+max         NaN     21.000
+
+On-time delivery rate: 88.6%</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+🤔 Discussion Questions: Aggregate Mental Model
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Question 1: Boolean Aggregation</strong> - Why does <code>sum()</code> work on boolean values? What does it count?</p>
+</div>
+</div>
+<section id="briefly-give-answers-to-the-discussion-questions-in-this-section-4" class="level4">
+<h4 class="anchored" data-anchor-id="briefly-give-answers-to-the-discussion-questions-in-this-section-4">Briefly Give Answers to the Discussion Questions In This Section</h4>
+<blockquote class="blockquote">
+<p>Replace this with your answers to the discussion questions</p>
+</blockquote>
+</section>
+</section>
+<section id="merge-combining-information" class="level3">
+<h3 class="anchored" data-anchor-id="merge-combining-information">6. Merge: Combining Information</h3>
+<p><strong>Mental Model:</strong> Join data from multiple sources to create richer datasets.</p>
+<p>Now let’s analyze service levels by product category. First, we need to merge our data:</p>
+<div id="mental-model-6-merge-prep" class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Merge shipment data with product line data</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>shipments_with_category <span class="op">=</span> (</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    clean_shipments</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>    .merge(product_line_df, on<span class="op">=</span><span class="st">'partID'</span>, how<span class="op">=</span><span class="st">'left'</span>)  <span class="co"># Left join to keep all shipments</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>    .assign(</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>        category_late<span class="op">=</span><span class="kw">lambda</span> df: df[<span class="st">'is_late'</span>] <span class="op">&amp;</span> df[<span class="st">'prodCategory'</span>].notna()  <span class="co"># Only count as late if we have category info</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Product categories available:"</span>)</span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(shipments_with_category[<span class="st">'prodCategory'</span>].value_counts())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Product categories available:
+prodCategory
+Marketables    1850
+Machines        846
+SpareParts      767
+Liquids         537
+Name: count, dtype: int64</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+🤔 Discussion Questions: Merge Mental Model
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Question 1: Join Types and Data Loss</strong> - Why does your professor think we should use <code>how='left'</code> in most cases? - How can you check if any shipments were lost during the merge?</p>
+<p><strong>Question 2: Key Column Matching</strong> - What happens if there are duplicate <code>partID</code> values in the <code>product_line_df</code>?</p>
+</div>
+</div>
+<section id="briefly-give-answers-to-the-discussion-questions-in-this-section-5" class="level4">
+<h4 class="anchored" data-anchor-id="briefly-give-answers-to-the-discussion-questions-in-this-section-5">Briefly Give Answers to the Discussion Questions In This Section</h4>
+<blockquote class="blockquote">
+<p>Replace this with your answers to the discussion questions</p>
+</blockquote>
+</section>
+</section>
+<section id="split-apply-combine-group-analysis" class="level3">
+<h3 class="anchored" data-anchor-id="split-apply-combine-group-analysis">7. Split-Apply-Combine: Group Analysis</h3>
+<p><strong>Mental Model:</strong> Group data and apply functions within each group.</p>
+<p>Now let’s analyze service levels by category:</p>
+<div id="mental-model-7-groupby" class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Analyze service levels by product category</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>service_by_category <span class="op">=</span> (</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>    shipments_with_category</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>    .groupby(<span class="st">'prodCategory'</span>)  <span class="co"># Split by product category</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>    .agg({</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>        <span class="st">'is_late'</span>: [<span class="st">'any'</span>, <span class="st">'count'</span>, <span class="st">'sum'</span>, <span class="st">'mean'</span>],  <span class="co"># Count, late count, percentage late</span></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>        <span class="st">'days_late'</span>: [<span class="st">'mean'</span>, <span class="st">'max'</span>]  <span class="co"># Average and max days late</span></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>    })</span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>    .<span class="bu">round</span>(<span class="dv">3</span>)</span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Service Level by Product Category:"</span>)</span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(service_by_category)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Service Level by Product Category:
+             is_late                   days_late    
+                 any count  sum   mean      mean max
+prodCategory                                        
+Liquids         True   537   22  0.041    -0.950  19
+Machines        True   846  152  0.180    -1.336  21
+Marketables     True  1850  145  0.078    -0.804  21
+SpareParts      True   767  137  0.179    -1.003  21</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+🤔 Discussion Questions: Split-Apply-Combine Mental Model
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Question 1: GroupBy Mechanics</strong> - What does <code>.groupby('prodCategory')</code> actually do? How does it “split” the data? - Why do we need to use <code>.agg()</code> after grouping? What happens if you don’t?</p>
+<p><strong>Question 2: Multi-Level Grouping</strong> - Explore grouping by <code>['shipID', 'prodCategory']</code>? What question does this answer versus grouping by <code>'prodCategory'</code> alone? (HINT: There may be many rows with identical shipID’s due to a particular order having multiple partID’s.)</p>
+</div>
+</div>
+<section id="briefly-give-answers-to-the-discussion-questions-in-this-section-6" class="level4">
+<h4 class="anchored" data-anchor-id="briefly-give-answers-to-the-discussion-questions-in-this-section-6">Briefly Give Answers to the Discussion Questions In This Section</h4>
+<blockquote class="blockquote">
+<p>Replace this with your answers to the discussion questions</p>
+</blockquote>
+</section>
+</section>
+</section>
+<section id="answering-a-business-question" class="level2">
+<h2 class="anchored" data-anchor-id="answering-a-business-question">Answering A Business Question</h2>
+<p><strong>Mental Model:</strong> Combine multiple data manipulation techniques to answer complex business questions.</p>
+<p>Let’s create a comprehensive analysis by combining shipment-level data with category information:</p>
+<div id="mental-model-7-comprehensive" class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a comprehensive analysis dataset</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>comprehensive_analysis <span class="op">=</span> (</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>    shipments_with_category</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>    .groupby([<span class="st">'shipID'</span>, <span class="st">'prodCategory'</span>])  <span class="co"># Group by shipment and category</span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>    .agg({</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>        <span class="st">'is_late'</span>: <span class="st">'any'</span>,  <span class="co"># True if any item in this shipment/category is late</span></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>        <span class="st">'days_late'</span>: <span class="st">'max'</span>  <span class="co"># Maximum days late for this shipment/category</span></span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>    })</span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>    .reset_index()</span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>    .assign(</span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>        has_multiple_categories<span class="op">=</span><span class="kw">lambda</span> df: df.groupby(<span class="st">'shipID'</span>)[<span class="st">'prodCategory'</span>].transform(<span class="st">'nunique'</span>) <span class="op">&gt;</span> <span class="dv">1</span></span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Comprehensive analysis - shipments with multiple categories:"</span>)</span>
+<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a>multi_category_shipments <span class="op">=</span> comprehensive_analysis[comprehensive_analysis[<span class="st">'has_multiple_categories'</span>]]</span>
+<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Shipments with multiple categories: </span><span class="sc">{</span>multi_category_shipments[<span class="st">'shipID'</span>]<span class="sc">.</span>nunique()<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Total unique shipments: </span><span class="sc">{</span>comprehensive_analysis[<span class="st">'shipID'</span>]<span class="sc">.</span>nunique()<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb18-19"><a href="#cb18-19" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Percentage with multiple categories: </span><span class="sc">{</span>multi_category_shipments[<span class="st">'shipID'</span>]<span class="sc">.</span>nunique() <span class="op">/</span> comprehensive_analysis[<span class="st">'shipID'</span>]<span class="sc">.</span>nunique() <span class="op">*</span> <span class="dv">100</span><span class="sc">:.1f}</span><span class="ss">%"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Comprehensive analysis - shipments with multiple categories:
+Shipments with multiple categories: 232
+Total unique shipments: 997
+Percentage with multiple categories: 23.3%</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+🤔 Discussion Questions: Answering A Business Question
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Question 1: Business Question Analysis</strong> - What business question does this comprehensive analysis answer? - How does grouping by <code>['shipID', 'prodCategory']</code> differ from grouping by just <code>'prodCategory'</code>? - What insights can ZappTech’s management gain from knowing the percentage of multi-category shipments?</p>
+</div>
+</div>
+<section id="briefly-give-answers-to-the-discussion-questions-in-this-section-7" class="level4">
+<h4 class="anchored" data-anchor-id="briefly-give-answers-to-the-discussion-questions-in-this-section-7">Briefly Give Answers to the Discussion Questions In This Section</h4>
+<blockquote class="blockquote">
+<p>Replace this with your answers to the discussion questions</p>
+</blockquote>
+</section>
+</section>
+<section id="student-analysis-section" class="level2">
+<h2 class="anchored" data-anchor-id="student-analysis-section">Student Analysis Section: Mastering Data Manipulation</h2>
+<p><strong>Your Task:</strong> Demonstrate your mastery of the seven mental models through comprehensive discussion and analysis. The bulk of your grade comes from thoughtfully answering the discussion questions for each mental model. See below for more details.</p>
+<section id="core-challenge-discussion-questions-analysis" class="level3">
+<h3 class="anchored" data-anchor-id="core-challenge-discussion-questions-analysis">Core Challenge: Discussion Questions Analysis</h3>
+<p><strong>For each mental model, provide:</strong> - Clear, concise answers to all discussion questions - Code examples where appropriate to support your explanations</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+📊 Discussion Questions Requirements
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Complete all discussion question sections:</strong> 1. <strong>Assign Mental Model:</strong> Data types, date handling, and debugging 2. <strong>Subset Mental Model:</strong> Filtering strategies and complex queries 3. <strong>Drop Mental Model:</strong> Data cleaning and quality management 4. <strong>Sort Mental Model:</strong> Data organization and business logic 5. <strong>Aggregate Mental Model:</strong> Summary statistics and business metrics 6. <strong>Merge Mental Model:</strong> Data integration and quality control 7. <strong>Split-Apply-Combine Mental Model:</strong> Group analysis and advanced operations 8. <strong>Answering A Business Question:</strong> Combining multiple data manipulation techniques to answer a business question</p>
+</div>
+</div>
+</section>
+<section id="professional-visualizations-for-100-grade" class="level3">
+<h3 class="anchored" data-anchor-id="professional-visualizations-for-100-grade">Professional Visualizations (For 100% Grade)</h3>
+<p><strong>Your Task:</strong> Create a professional visualization that supports your analysis and demonstrates your understanding of the data.</p>
+<p><strong>Create visualizations showing:</strong> - Service level (on-time percentage) by product category</p>
+<p><strong>Your visualizations should:</strong> - Use clear labels and professional formatting - Support the insights from your discussion questions - Be appropriate for a business audience - Do not <code>echo</code> the code that creates the visualizations</p>
+</section>
+</section>
+<section id="challenge-requirements" class="level2">
+<h2 class="anchored" data-anchor-id="challenge-requirements">Challenge Requirements 📋</h2>
+<p><strong>Your Primary Task:</strong> Answer all discussion questions for the seven mental models with thoughtful, well-reasoned responses that demonstrate your understanding of data manipulation concepts.</p>
+<p><strong>Key Requirements:</strong> - Complete discussion questions for each mental model - Demonstrate clear understanding of pandas concepts and data manipulation techniques - Write clear, business-focused analysis that explains your findings</p>
+</section>
+<section id="getting-started-repository-setup" class="level2">
+<h2 class="anchored" data-anchor-id="getting-started-repository-setup">Getting Started: Repository Setup 🚀</h2>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+📁 Getting Started
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Step 1:</strong> Fork and clone this challenge repository - Go to the course repository and find the “dataManipulationChallenge” folder - Fork it to your GitHub account, or clone it directly - Open the cloned repository in Cursor</p>
+<p><strong>Step 2:</strong> Set up your Python environment - Follow the Python setup instructions above (use your existing venv from Tech Setup Challenge Part 2) - Make sure your virtual environment is activated and the Python interpreter is set</p>
+<p><strong>Step 3:</strong> You’re ready to start! The data loading code is already provided in this file.</p>
+<p><strong>Note:</strong> This challenge uses the same <code>index.qmd</code> file you’re reading right now - you’ll edit it to complete your analysis.</p>
+</div>
+</div>
+<section id="getting-started-tips" class="level3">
+<h3 class="anchored" data-anchor-id="getting-started-tips">Getting Started Tips</h3>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+🎯 Method Chaining Philosophy
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<blockquote class="blockquote">
+<p>“Each operation should build naturally on the previous one”</p>
+</blockquote>
+<p><em>Think of method chaining like building with LEGO blocks - each piece connects to the next, creating something more complex and useful than the individual pieces.</em></p>
+</div>
+</div>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+💾 Important: Save Your Work Frequently!
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Before you start:</strong> Make sure to commit your work often using the Source Control panel in Cursor (Ctrl+Shift+G or Cmd+Shift+G). This prevents the AI from overwriting your progress and ensures you don’t lose your work.</p>
+<p><strong>Commit after each major step:</strong></p>
+<ul>
+<li>After completing each mental model section</li>
+<li>After adding your visualizations</li>
+<li>After completing your advanced method chain</li>
+<li>Before asking the AI for help with new code</li>
+</ul>
+<p><strong>How to commit:</strong></p>
+<ol type="1">
+<li>Open Source Control panel (Ctrl+Shift+G)</li>
+<li>Stage your changes (+ button)</li>
+<li>Write a descriptive commit message</li>
+<li>Click the checkmark to commit</li>
+</ol>
+<p><em>Remember: Frequent commits are your safety net!</em></p>
+</div>
+</div>
+</section>
+</section>
+<section id="grading-rubric" class="level2">
+<h2 class="anchored" data-anchor-id="grading-rubric">Grading Rubric 🎓</h2>
+<p><strong>75% Grade:</strong> Complete discussion questions for at least 5 of the 7 mental models with clear, thoughtful responses.</p>
+<p><strong>85% Grade:</strong> Complete discussion questions for all 7 mental models with comprehensive, well-reasoned responses.</p>
+<p><strong>95% Grade:</strong> Complete all discussion questions plus the “Answering A Business Question” section.</p>
+<p><strong>100% Grade:</strong> Complete all discussion questions plus create a professional visualization showing service level by product category.</p>
+</section>
+<section id="submission-checklist" class="level2">
+<h2 class="anchored" data-anchor-id="submission-checklist">Submission Checklist ✅</h2>
+<p><strong>Minimum Requirements (Required for Any Points):</strong></p>
+<ul class="task-list">
+<li><label><input type="checkbox">Created repository named “dataManipulationChallenge” in your GitHub account</label></li>
+<li><label><input type="checkbox">Cloned repository locally using Cursor (or VS Code)</label></li>
+<li><label><input type="checkbox">Completed discussion questions for at least 5 of the 7 mental models</label></li>
+<li><label><input type="checkbox">Document rendered to HTML successfully</label></li>
+<li><label><input type="checkbox">HTML files uploaded to your repository</label></li>
+<li><label><input type="checkbox">GitHub Pages enabled and working</label></li>
+<li><label><input type="checkbox">Site accessible at <code>https://[your-username].github.io/dataManipulationChallenge/</code></label></li>
+</ul>
+<p><strong>75% Grade Requirements:</strong></p>
+<ul class="task-list">
+<li><label><input type="checkbox">Complete discussion questions for at least 5 of the 7 mental models</label></li>
+<li><label><input type="checkbox">Clear, thoughtful responses that demonstrate understanding</label></li>
+<li><label><input type="checkbox">Code examples where appropriate to support explanations</label></li>
+</ul>
+<p><strong>85% Grade Requirements:</strong></p>
+<ul class="task-list">
+<li><label><input type="checkbox">Complete discussion questions for all 7 mental models</label></li>
+<li><label><input type="checkbox">Comprehensive, well-reasoned responses showing deep understanding</label></li>
+<li><label><input type="checkbox">Business context for why concepts matter</label></li>
+<li><label><input type="checkbox">Examples of real-world applications</label></li>
+</ul>
+<p><strong>95% Grade Requirements:</strong></p>
+<ul class="task-list">
+<li><label><input type="checkbox">Complete discussion questions for all 7 mental models</label></li>
+<li><label><input type="checkbox">Complete the “Answering A Business Question” discussion questions</label></li>
+<li><label><input type="checkbox">Comprehensive, well-reasoned responses showing deep understanding</label></li>
+<li><label><input type="checkbox">Business context for why concepts matter</label></li>
+</ul>
+<p><strong>100% Grade Requirements:</strong></p>
+<ul class="task-list">
+<li><label><input type="checkbox">All discussion questions completed with professional quality</label></li>
+<li><label><input type="checkbox">Professional visualization showing service level by product category</label></li>
+<li><label><input type="checkbox">Professional presentation style appropriate for business audience</label></li>
+<li><label><input type="checkbox">Clear, engaging narrative that tells a compelling story</label></li>
+<li><label><input type="checkbox">Practical insights that would help ZappTech’s management</label></li>
+</ul>
+<p><strong>Report Quality (Critical for Higher Grades):</strong></p>
+<ul class="task-list">
+<li><label><input type="checkbox">Professional writing style (no AI-generated fluff)</label></li>
+<li><label><input type="checkbox">Concise analysis that gets to the point</label></li>
+</ul>
+</section>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
