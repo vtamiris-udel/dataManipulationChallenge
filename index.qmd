@@ -112,13 +112,13 @@ from datetime import datetime, timedelta
 
 # Load the shipment data
 shipments_df = pd.read_csv(
-    "https://raw.githubusercontent.com/flyaflya/persuasive/main/shipments.csv", 
+    "shipments.csv", 
     parse_dates=['plannedShipDate', 'actualShipDate']
 )
 
 # Load product line data
 product_line_df = pd.read_csv(
-    "https://raw.githubusercontent.com/flyaflya/persuasive/main/productLine.csv"
+    "productLine.csv"
 )
 
 # Reduce dataset size for faster processing (4,000 rows instead of 96,805 rows)
@@ -196,13 +196,19 @@ print(shipments_with_lateness[['shipID', 'plannedShipDate', 'actualShipDate', 'i
 
 **Question 1: Data Types and Date Handling**
 - What is the `dtype` of the `actualShipDate` series? How can you find out using code?
+```{python}
+shipments_with_lateness["actualShipDate"].dtype
+```
 - Why is it important that both `actualShipDate` and `plannedShipDate` have the same data type for comparison?
+  [VT] To ensure the comparator operators can calculate the differences.
 
 **Question 2: String vs Date Comparison**
 - Can you give an example where comparing two dates as strings would yield unintuitive results, e.g. what happens if you try to compare "04-11-2025" and "05-20-2024" as strings vs as dates?
+ [VT] String compare uses lexicographic order which is character by character and this case comparsion will result 04-11-2025 comes before 05-20-2024 which is incorrect.
+
 
 **Question 3: Debug This Code**
-```python
+```{python}
 # This code has an error - can you spot it?
 shipments_with_lateness = (
     shipments_df
@@ -214,6 +220,22 @@ shipments_with_lateness = (
 )
 ```
 What's wrong with the `lateStatement` assignment and how would you fix it?
+```{python}
+shipments_with_lateness = (
+    shipments_df
+    .assign(
+        is_late=lambda df: df["actualShipDate"] > df["plannedShipDate"],
+        days_late=lambda df: (df["actualShipDate"] - df["plannedShipDate"]).dt.days,
+        lateStatement=lambda df: np.where(
+            df["is_late"],
+            "Darn Shipment is Late",
+            "Shipment is on Time"
+        )
+    )
+)
+```
+
+
 :::
 
 #### Briefly Give Answers to the Discussion Questions In This Section
@@ -263,7 +285,22 @@ print(late_shipments.head())
 
 #### Briefly Give Answers to the Discussion Questions In This Section
 
-> Replace this with your answers to the discussion questions
+**Question 1
+ [VT] query is more readable as it provides a SQL'ish expression string.It lets you reference columns with braces.
+
+**Question 2
+```{python}
+late_shipments = (
+    shipments_with_lateness
+    .query('days_late >=5' )  # Query rows where is_late is True
+    .filter(['shipID', 'partID', 'plannedShipDate', 'actualShipDate', 'days_late'])  # Filter to keep specific columns
+)
+
+print(f"Found {len(late_shipments)} late shipments out of {len(shipments_with_lateness)} total")
+print("\nLate shipments sample:")
+print(late_shipments.head())
+``` 
+
 
 ### 3. Drop: Removing Unwanted Data
 
