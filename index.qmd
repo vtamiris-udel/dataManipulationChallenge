@@ -208,7 +208,7 @@ shipments_with_lateness["actualShipDate"].dtype
 
 
 **Question 3: Debug This Code**
-```{python}
+```python
 # This code has an error - can you spot it?
 shipments_with_lateness = (
     shipments_df
