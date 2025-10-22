@@ -337,9 +337,17 @@ print("Remaining columns:", clean_shipments.columns.tolist())
 :::
 
 #### Briefly Give Answers to the Discussion Questions In This Section
+**Question 1
+[VT] .drop removes the named columns and keeps everything else. 
+     .filter selects on the listed columns and drops everything else.
 
-> Replace this with your answers to the discussion questions
+[VT] we can use drop columns when we want to shed few fields. Anything new will automatically stay adding that trust to the incoming schema.
+ [VT] Use filter when we need a tight whitelist. 
 
+**Question 2
+ [VT] .dropna() with no subset checks every column and if the column has a missing value- that entire row gets removed.
+ [VT] Using subset narrows the check to only those columns, so rows survive even if other fields are null. Rows are dropped when either date is missing.
+ [VT] If we blanket drop; we might break the analysis as important columns might be dropped off.
 ### 4. Sort: Arranging Data
 
 **Mental Model:** Order data by values or indices.
