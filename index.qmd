@@ -11,50 +11,45 @@ execute:
 
 # 🔗 Data Manipulation Challenge - A Mental Model for Method Chaining in Pandas
 
-::: {.callout-important}
+::: callout-important
 ## 📊 Challenge Requirements In Section [Student Analysis Section](#student-analysis-section)
-- Complete all discussion questions for the seven mental models (plus some extra requirements for higher grades)
+
+-   Complete all discussion questions for the seven mental models (plus some extra requirements for higher grades)
 :::
 
-::: {.callout-important}
+:::: callout-important
 ## 🎯 Note on Python Usage
 
-**Recommended Workflow: Use Your Existing Virtual Environment**
-If you completed the Tech Setup Challenge Part 2, you already have a virtual environment set up! Here's how to use it for this new challenge:
+**Recommended Workflow: Use Your Existing Virtual Environment** If you completed the Tech Setup Challenge Part 2, you already have a virtual environment set up! Here's how to use it for this new challenge:
 
-1. **Clone this new challenge repository** (see Getting Started section below)
-2. **Open the cloned repository in Cursor**
-3. **Set this project to use your existing Python interpreter:**
-   - Press `Ctrl+Shift+P` → "Python: Select Interpreter"
-   - Navigate to and choose the interpreter from your existing virtual environment (e.g., `your-previous-project/venv/Scripts/python.exe`)
-4. **Activate the environment in your terminal:**
-   - Open terminal in Cursor (`Ctrl + ``)
-   - Navigate to your previous project folder where you have the `venv` folder
-   - **💡 Pro tip:** You can quickly navigate by typing `cd` followed by dragging the folder from your file explorer into the terminal
-   - Activate using the appropriate command for your system:
-     - **Windows Command Prompt:** `venv\Scripts\activate`
-     - **Windows PowerShell:** `.\venv\Scripts\Activate.ps1`
-     - **Mac/Linux:** `source venv/bin/activate`
-   - You should see `(venv)` at the beginning of your terminal prompt
-5. **Install additional packages if needed:** `pip install pandas numpy matplotlib seaborn`
+1.  **Clone this new challenge repository** (see Getting Started section below)
+2.  **Open the cloned repository in Cursor**
+3.  **Set this project to use your existing Python interpreter:**
+    -   Press `Ctrl+Shift+P` → "Python: Select Interpreter"
+    -   Navigate to and choose the interpreter from your existing virtual environment (e.g., `your-previous-project/venv/Scripts/python.exe`)
+4.  **Activate the environment in your terminal:**
+    -   Open terminal in Cursor (\`Ctrl + \`\`)
+    -   Navigate to your previous project folder where you have the `venv` folder
+    -   **💡 Pro tip:** You can quickly navigate by typing `cd` followed by dragging the folder from your file explorer into the terminal
+    -   Activate using the appropriate command for your system:
+        -   **Windows Command Prompt:** `venv\Scripts\activate`
+        -   **Windows PowerShell:** `.\venv\Scripts\Activate.ps1`
+        -   **Mac/Linux:** `source venv/bin/activate`
+    -   You should see `(venv)` at the beginning of your terminal prompt
+5.  **Install additional packages if needed:** `pip install pandas numpy matplotlib seaborn`
 
-::: {.callout-warning}
+::: callout-warning
 ## ⚠️ Cloud Storage Warning
 
-**Avoid using Google Drive, OneDrive, or other cloud storage for Python projects!** These services can cause issues with:
-- Package installations failing due to file locking
-- Virtual environment corruption
-- Slow performance during pip operations
+**Avoid using Google Drive, OneDrive, or other cloud storage for Python projects!** These services can cause issues with: - Package installations failing due to file locking - Virtual environment corruption - Slow performance during pip operations
 
 **Best practice:** Keep your Python projects in a local folder like `C:\Users\YourName\Documents\` or `~/Documents/` instead of cloud-synced folders.
 :::
 
-**Alternative: Create a New Virtual Environment**
-If you prefer a fresh environment, follow the Quarto documentation: [https://quarto.org/docs/projects/virtual-environments.html](https://quarto.org/docs/projects/virtual-environments.html). Be sure to follow the instructions to activate the environment, set it up as your default Python interpreter for the project, and install the necessary packages (e.g. pandas) for this challenge.  For installing the packages, you can use the `pip install -r requirements.txt` command since you already have the requirements.txt file in your project.   Some steps do take a bit of time, so be patient.
+**Alternative: Create a New Virtual Environment** If you prefer a fresh environment, follow the Quarto documentation: <https://quarto.org/docs/projects/virtual-environments.html>. Be sure to follow the instructions to activate the environment, set it up as your default Python interpreter for the project, and install the necessary packages (e.g. pandas) for this challenge. For installing the packages, you can use the `pip install -r requirements.txt` command since you already have the requirements.txt file in your project. Some steps do take a bit of time, so be patient.
 
 **Why This Works:** Virtual environments are portable - you can use the same environment across multiple projects, and Cursor automatically activates it when you select the interpreter!
-
-:::
+::::
 
 ## The Problem: Mastering Data Manipulation Through Method Chaining
 
@@ -64,7 +59,7 @@ If you prefer a fresh environment, follow the Quarto documentation: [https://qua
 
 **Our Approach:** We'll work with ZappTech's shipment data to answer critical business questions about service levels and cross-category orders, using the seven mental models of data manipulation through pandas method chaining.
 
-::: {.callout-warning}
+::: callout-warning
 ## ⚠️ AI Partnership Required
 
 This challenge pushes boundaries intentionally. You'll tackle problems that normally require weeks of study, but with Cursor AI as your partner (and your brain keeping it honest), you can accomplish more than you thought possible.
@@ -76,23 +71,22 @@ This challenge pushes boundaries intentionally. You'll tackle problems that norm
 
 The seven most important ways we manipulate datasets are:
 
-1. **Assign:** Add new variables with calculations and transformations
-2. **Subset:** Filter data based on conditions or select specific columns
-3. **Drop:** Remove unwanted variables or observations
-4. **Sort:** Arrange data by values or indices
-5. **Aggregate:** Summarize data using functions like mean, sum, count
-6. **Merge:** Combine information from multiple datasets
-7. **Split-Apply-Combine:** Group data and apply functions within groups
-
+1.  **Assign:** Add new variables with calculations and transformations
+2.  **Subset:** Filter data based on conditions or select specific columns
+3.  **Drop:** Remove unwanted variables or observations
+4.  **Sort:** Arrange data by values or indices
+5.  **Aggregate:** Summarize data using functions like mean, sum, count
+6.  **Merge:** Combine information from multiple datasets
+7.  **Split-Apply-Combine:** Group data and apply functions within groups
 
 ## Data and Business Context
 
 We analyze ZappTech's shipment data, which contains information about product deliveries across multiple categories. This dataset is ideal for our analysis because:
 
-- **Real Business Questions:** CEO wants to understand service levels and cross-category shopping patterns
-- **Multiple Data Sources:** Requires merging shipment data with product category information
-- **Complex Relationships:** Service levels may vary by product category, and customers may order across categories
-- **Method Chaining Practice:** Perfect for demonstrating all seven mental models in sequence
+-   **Real Business Questions:** CEO wants to understand service levels and cross-category shopping patterns
+-   **Multiple Data Sources:** Requires merging shipment data with product category information
+-   **Complex Relationships:** Service levels may vary by product category, and customers may order across categories
+-   **Method Chaining Practice:** Perfect for demonstrating all seven mental models in sequence
 
 ## Data Loading and Initial Exploration
 
@@ -136,24 +130,14 @@ print("\nFirst few rows of product line data:")
 print(product_line_df.head(10))
 ```
 
-::: {.callout-note}
+::: callout-note
 ## 💡 Understanding the Data
 
-**Shipments Data:** Contains individual line items for each shipment, including:
-- `shipID`: Unique identifier for each shipment
-- `partID`: Product identifier
-- `plannedShipDate`: When the shipment was supposed to go out
-- `actualShipDate`: When it actually shipped
-- `quantity`: How many units were shipped
+**Shipments Data:** Contains individual line items for each shipment, including: - `shipID`: Unique identifier for each shipment - `partID`: Product identifier - `plannedShipDate`: When the shipment was supposed to go out - `actualShipDate`: When it actually shipped - `quantity`: How many units were shipped
 
-**Product Category and Line Data:** Contains product category information:
-- `partID`: Links to shipments data
-- `productLine`: The category each product belongs to
-- `prodCategory`: The category each product belongs to
+**Product Category and Line Data:** Contains product category information: - `partID`: Links to shipments data - `productLine`: The category each product belongs to - `prodCategory`: The category each product belongs to
 
-**Business Questions We'll Answer:**
-1. Does service level (on-time shipments) vary across product categories?
-2. How often do orders include products from more than one category?
+**Business Questions We'll Answer:** 1. Does service level (on-time shipments) vary across product categories? 2. How often do orders include products from more than one category?
 :::
 
 ## The Seven Mental Models: A Progressive Learning Journey
@@ -183,7 +167,7 @@ print("Added lateness calculations:")
 print(shipments_with_lateness[['shipID', 'plannedShipDate', 'actualShipDate', 'is_late', 'days_late']].head())
 ```
 
-::: {.callout-tip}
+::: callout-tip
 ## 💡 Method Chaining Tip for New Python Users
 
 **Why use `lambda df:`?** When chaining methods, we need to reference the current state of the dataframe. The `lambda df:` tells pandas "use the current dataframe in this calculation." Without it, pandas would look for a variable called `df` that doesn't exist.
@@ -191,24 +175,26 @@ print(shipments_with_lateness[['shipID', 'plannedShipDate', 'actualShipDate', 'i
 **Alternative approach:** You could also write this as separate steps, but method chaining keeps related operations together and makes the code more readable.
 :::
 
-::: {.callout-important}
+::: callout-important
 ## 🤔 Discussion Questions: Assign Mental Model
 
-**Question 1: Data Types and Date Handling**
-- What is the `dtype` of the `actualShipDate` series? How can you find out using code?
+**Question 1: Data Types and Date Handling** - What is the `dtype` of the `actualShipDate` series? How can you find out using code?
+
 ```{python}
 shipments_with_lateness["actualShipDate"].dtype
 ```
-- Why is it important that both `actualShipDate` and `plannedShipDate` have the same data type for comparison?
-  [VT] To ensure the comparator operators can calculate the differences.
 
-**Question 2: String vs Date Comparison**
-- Can you give an example where comparing two dates as strings would yield unintuitive results, e.g. what happens if you try to compare "04-11-2025" and "05-20-2024" as strings vs as dates?
- [VT] String compare uses lexicographic order which is character by character and this case comparsion will result 04-11-2025 comes before 05-20-2024 which is incorrect.
+-   Why is it important that both `actualShipDate` and `plannedShipDate` have the same data type for comparison?
 
+    \[VT\] To ensure the comparator operators can calculate the differences.
+
+**Question 2: String vs Date Comparison** - Can you give an example where comparing two dates as strings would yield unintuitive results, e.g. what happens if you try to compare "04-11-2025" and "05-20-2024" as strings vs as dates?
+
+\[VT\] String compare uses lexicographic order which is character by character and this case comparsion will result 04-11-2025 comes before 05-20-2024 which is incorrect.
 
 **Question 3: Debug This Code**
-```python
+
+``` python
 # This code has an error - can you spot it?
 shipments_with_lateness = (
     shipments_df
@@ -219,7 +205,9 @@ shipments_with_lateness = (
     )
 )
 ```
+
 What's wrong with the `lateStatement` assignment and how would you fix it?
+
 ```{python}
 shipments_with_lateness = (
     shipments_df
@@ -234,8 +222,6 @@ shipments_with_lateness = (
     )
 )
 ```
-
-
 :::
 
 #### Briefly Give Answers to the Discussion Questions In This Section
@@ -264,31 +250,30 @@ print("\nLate shipments sample:")
 print(late_shipments.head())
 ```
 
-::: {.callout-note}
+::: callout-note
 ## 🔍 Understanding the Methods
 
-- **`.query()`**: Query rows based on conditions (like SQL WHERE clause)
-- **`.filter()`**: Filter to keep specific columns by name
-- **Alternative**: You could use `.loc[]` for more complex row querying, but `.query()` is often more readable
+-   **`.query()`**: Query rows based on conditions (like SQL WHERE clause)
+-   **`.filter()`**: Filter to keep specific columns by name
+-   **Alternative**: You could use `.loc[]` for more complex row querying, but `.query()` is often more readable
 :::
 
-::: {.callout-important}
+::: callout-important
 ## 🤔 Discussion Questions: Subset Mental Model
 
-**Question 1: Query vs Boolean Indexing**
-- What's the difference between using `.query('is_late == True')` and `[df['is_late'] == True]`?
-- Which approach is more readable and why?
+**Question 1: Query vs Boolean Indexing** - What's the difference between using `.query('is_late == True')` and `[df['is_late'] == True]`? - Which approach is more readable and why?
 
-**Question 2: Additional Row Querying**
-- Can you show an example of using a variable like `late_threshold` to query rows for shipments that are at least `late_threshold` days late, e.g. what if you wanted to query rows for shipments that are at least 5 days late?
+**Question 2: Additional Row Querying** - Can you show an example of using a variable like `late_threshold` to query rows for shipments that are at least `late_threshold` days late, e.g. what if you wanted to query rows for shipments that are at least 5 days late?
 :::
 
 #### Briefly Give Answers to the Discussion Questions In This Section
 
-**Question 1
- [VT] query is more readable as it provides a SQL'ish expression string.It lets you reference columns with braces.
+\*\*Question 1
 
-**Question 2
+\[VT\] query is more readable as it provides a SQL'ish expression string.It lets you reference columns with braces.
+
+\*\*Question 2
+
 ```{python}
 late_shipments = (
     shipments_with_lateness
@@ -299,8 +284,7 @@ late_shipments = (
 print(f"Found {len(late_shipments)} late shipments out of {len(shipments_with_lateness)} total")
 print("\nLate shipments sample:")
 print(late_shipments.head())
-``` 
-
+```
 
 ### 3. Drop: Removing Unwanted Data
 
@@ -323,31 +307,28 @@ print(f"Cleaned dataset: {len(clean_shipments)} rows, {len(clean_shipments.colum
 print("Remaining columns:", clean_shipments.columns.tolist())
 ```
 
-::: {.callout-important}
+::: callout-important
 ## 🤔 Discussion Questions: Drop Mental Model
 
-**Question 1: Drop vs Filter Strategies**
-- What's the difference between `.drop(columns=['quantity'])` and `.filter()` with a list of columns you want to keep?
-- When would you choose to drop columns vs filter to keep specific columns?
+**Question 1: Drop vs Filter Strategies** - What's the difference between `.drop(columns=['quantity'])` and `.filter()` with a list of columns you want to keep? - When would you choose to drop columns vs filter to keep specific columns?
 
-**Question 2: Handling Missing Data**
-- What happens if you use `.dropna()` without specifying `subset`? How is this different from `.dropna(subset=['plannedShipDate', 'actualShipDate'])`?
-- Why might you want to be selective about which columns to check for missing values?
-
+**Question 2: Handling Missing Data** - What happens if you use `.dropna()` without specifying `subset`? How is this different from `.dropna(subset=['plannedShipDate', 'actualShipDate'])`? - Why might you want to be selective about which columns to check for missing values?
 :::
 
 #### Briefly Give Answers to the Discussion Questions In This Section
-**Question 1
-[VT] .drop removes the named columns and keeps everything else. 
-     .filter selects on the listed columns and drops everything else.
 
-[VT] we can use drop columns when we want to shed few fields. Anything new will automatically stay adding that trust to the incoming schema.
- [VT] Use filter when we need a tight whitelist. 
+\*\*Question 1
 
-**Question 2
- [VT] .dropna() with no subset checks every column and if the column has a missing value- that entire row gets removed.
- [VT] Using subset narrows the check to only those columns, so rows survive even if other fields are null. Rows are dropped when either date is missing.
- [VT] If we blanket drop; we might break the analysis as important columns might be dropped off.
+\[VT\] .drop removes the named columns and keeps everything else. .filter selects on the listed columns and drops everything else.
+
+\[VT\] we can use drop columns when we want to shed few fields. Anything new will automatically stay adding that trust to the incoming schema. \[VT\] Use filter when we need a tight whitelist.
+
+\*\*Question 2
+
+\[VT\] .dropna() with no subset checks every column and if the column has a missing value- that entire row gets removed.
+
+\[VT\] Using subset narrows the check to only those columns, so rows survive even if other fields are null. Rows are dropped when either date is missing. \[VT\] If we blanket drop; we might break the analysis as important columns might be dropped off.
+
 ### 4. Sort: Arranging Data
 
 **Mental Model:** Order data by values or indices.
@@ -369,22 +350,30 @@ print("Shipments sorted by lateness (worst first):")
 print(sorted_by_lateness[['shipID', 'partID', 'days_late', 'is_late']].head(10))
 ```
 
-::: {.callout-important}
+::: callout-important
 ## 🤔 Discussion Questions: Sort Mental Model
 
-**Question 1: Sorting Strategies**
-- What's the difference between `ascending=False` and `ascending=True` in sorting?
-- How would you sort by multiple columns (e.g., first by `is_late`, then by `days_late`)?
+**Question 1: Sorting Strategies** - What's the difference between `ascending=False` and `ascending=True` in sorting? - How would you sort by multiple columns (e.g., first by `is_late`, then by `days_late`)?
 
-**Question 2: Index Management**
-- Why do we use `.reset_index(drop=True)` after sorting?
-- What happens to the original index when you sort? Why might this be problematic?
-
+**Question 2: Index Management** - Why do we use `.reset_index(drop=True)` after sorting? - What happens to the original index when you sort? Why might this be problematic?
 :::
 
 #### Briefly Give Answers to the Discussion Questions In This Section
 
-> Replace this with your answers to the discussion questions
+\*\*Question 1
+
+\[VT\] Ascending=False displays in descending order else displays in ascending order. \[VT\]
+
+```{python}
+shipments_with_lateness.sort_values(
+    by=["is_late", "days_late"],
+    ascending=[False, False]  # or [False, True] depending on the order you want
+)
+```
+
+\*\*Question 2
+
+\[VT\] .reset_index() resets the indexes for the rows post sorting. \[VT\] Sorting reorders the rows but carries their original index labels. Due to this, if we try to refer data by reference; we get incorrect data.
 
 ### 5. Aggregate: Summarizing Data
 
@@ -414,19 +403,17 @@ on_time_rate = (1 - clean_shipments['is_late'].mean()) * 100
 print(f"\nOn-time delivery rate: {on_time_rate:.1f}%")
 ```
 
-::: {.callout-important}
+::: callout-important
 ## 🤔 Discussion Questions: Aggregate Mental Model
 
-**Question 1: Boolean Aggregation**
-- Why does `sum()` work on boolean values? What does it count?
-
+**Question 1: Boolean Aggregation** - Why does `sum()` work on boolean values? What does it count?
 :::
 
 #### Briefly Give Answers to the Discussion Questions In This Section
 
-> Replace this with your answers to the discussion questions
+\*\*Question 1
 
-### 6. Merge: Combining Information
+\[VT\] Counts the occurrences of 'True' values we have. \### 6. Merge: Combining Information
 
 **Mental Model:** Join data from multiple sources to create richer datasets.
 
@@ -449,21 +436,30 @@ print("\nProduct categories available:")
 print(shipments_with_category['prodCategory'].value_counts())
 ```
 
-::: {.callout-important}
+::: callout-important
 ## 🤔 Discussion Questions: Merge Mental Model
 
-**Question 1: Join Types and Data Loss**
-- Why does your professor think we should use `how='left'` in most cases? 
-- How can you check if any shipments were lost during the merge?
+**Question 1: Join Types and Data Loss** - Why does your professor think we should use `how='left'` in most cases? - How can you check if any shipments were lost during the merge?
 
-**Question 2: Key Column Matching**
-- What happens if there are duplicate `partID` values in the `product_line_df`?
-
+**Question 2: Key Column Matching** - What happens if there are duplicate `partID` values in the `product_line_df`?
 :::
 
 #### Briefly Give Answers to the Discussion Questions In This Section
 
-> Replace this with your answers to the discussion questions
+\*\*Question 1
+
+\[VT\] Since clean_shipments is the primary table, we want every shipment to stay in the result even if the product lookup is missing.
+
+\[VT\] Quick check is to ensure the counts are intact before and after merge.
+
+```{python}
+print(len(clean_shipments))
+print(len(shipments_with_category))
+```
+
+\*\*Question 2
+
+\[VT\] In the merge, every matching row in product_line_df pairs with the shipment’s partID. If a part ID appears twice on the product table, that shipment will duplicate—one row per match.
 
 ### 7. Split-Apply-Combine: Group Analysis
 
@@ -490,20 +486,25 @@ print("Service Level by Product Category:")
 print(service_by_category)
 ```
 
-::: {.callout-important}
+::: callout-important
 ## 🤔 Discussion Questions: Split-Apply-Combine Mental Model
 
-**Question 1: GroupBy Mechanics**
-- What does `.groupby('prodCategory')` actually do? How does it "split" the data?
-- Why do we need to use `.agg()` after grouping? What happens if you don't?
+**Question 1: GroupBy Mechanics** - What does `.groupby('prodCategory')` actually do? How does it "split" the data? - Why do we need to use `.agg()` after grouping? What happens if you don't?
 
-**Question 2: Multi-Level Grouping**
-- Explore grouping by `['shipID', 'prodCategory']`?  What question does this answer versus grouping by `'prodCategory'` alone?  (HINT: There may be many rows with identical shipID's due to a particular order having multiple partID's.)
+**Question 2: Multi-Level Grouping** - Explore grouping by `['shipID', 'prodCategory']`? What question does this answer versus grouping by `'prodCategory'` alone? (HINT: There may be many rows with identical shipID's due to a particular order having multiple partID's.)
 :::
 
 #### Briefly Give Answers to the Discussion Questions In This Section
 
-> Replace this with your answers to the discussion questions
+> Question 1
+>
+> \[VT\] .groupby('prodCategory') partitions the DataFrame into separate groups, one per category value. The result is just a blueprint , it does not compute anything yet. We need aggregation to tell the pandas what to do with the "blueprint". If we do not use, object sits there, printing it will show a placeholder.
+>
+> Question 2
+>
+> \[VT\] Grouping with 'prodCategory' alone will answer-\>“Across all rows/items, how does this category perform overall?” Ignores which rows belong to the same shipment and can double‑count orders with many lines.
+>
+> Grouping with shipID and prodCategory - Within each shipment, how did this category perform. Its useful to see if a category is driving late shipments at the order level.
 
 ## Answering A Business Question
 
@@ -536,18 +537,29 @@ print(f"Total unique shipments: {comprehensive_analysis['shipID'].nunique()}")
 print(f"Percentage with multiple categories: {multi_category_shipments['shipID'].nunique() / comprehensive_analysis['shipID'].nunique() * 100:.1f}%")
 ```
 
-::: {.callout-important}
+::: callout-important
 ## 🤔 Discussion Questions: Answering A Business Question
 
-**Question 1: Business Question Analysis**
-- What business question does this comprehensive analysis answer?
-- How does grouping by `['shipID', 'prodCategory']` differ from grouping by just `'prodCategory'`?
-- What insights can ZappTech's management gain from knowing the percentage of multi-category shipments?
+**Question 1: Business Question Analysis** - What business question does this comprehensive analysis answer? - How does grouping by `['shipID', 'prodCategory']` differ from grouping by just `'prodCategory'`? - What insights can ZappTech's management gain from knowing the percentage of multi-category shipments?
 :::
 
 #### Briefly Give Answers to the Discussion Questions In This Section
 
-> Replace this with your answers to the discussion questions
+> -   \['shipID', 'prodCategory'\]: summarizes within each shipment, per category (“did any item in this shipment’s category run late, and by how many days at worst?”). Avoids line-count inflation and ties lateness to specific orders.
+>
+> -   'prodCategory' only: aggregates across all lines in the dataset, ignoring which lines belong to the same shipment—good for overall category performance, but can over‑weight orders with many items and can’t answer order-level questions.
+>
+> Insights:
+>
+> -   Operational complexity: higher share implies more coordination across locations/pick paths, raising risk of delays.
+>
+> -   Lateness attribution: compare late rates for single‑ vs multi‑category shipments to quantify bundling risk.
+>
+> -   Process design: decide when to split shipments, stage inventory, or prioritize cross‑category synchronization.
+>
+> -   SLA and forecasting: set expectations and staffing where multi‑category orders are common and delay‑prone.
+>
+> -   Vendor/carrier strategy: identify categories that become late mainly when mixed, and target those handoffs.
 
 ## Student Analysis Section: Mastering Data Manipulation {#student-analysis-section}
 
@@ -555,69 +567,107 @@ print(f"Percentage with multiple categories: {multi_category_shipments['shipID']
 
 ### Core Challenge: Discussion Questions Analysis
 
-**For each mental model, provide:**
-- Clear, concise answers to all discussion questions
-- Code examples where appropriate to support your explanations
+**For each mental model, provide:** - Clear, concise answers to all discussion questions - Code examples where appropriate to support your explanations
 
-::: {.callout-important}
+::: callout-important
 ## 📊 Discussion Questions Requirements
 
-**Complete all discussion question sections:**
-1. **Assign Mental Model:** Data types, date handling, and debugging
-2. **Subset Mental Model:** Filtering strategies and complex queries
-3. **Drop Mental Model:** Data cleaning and quality management
-4. **Sort Mental Model:** Data organization and business logic
-5. **Aggregate Mental Model:** Summary statistics and business metrics
-6. **Merge Mental Model:** Data integration and quality control
-7. **Split-Apply-Combine Mental Model:** Group analysis and advanced operations
-8. **Answering A Business Question:** Combining multiple data manipulation techniques to answer a business question
+**Complete all discussion question sections:** 1. **Assign Mental Model:** Data types, date handling, and debugging 2. **Subset Mental Model:** Filtering strategies and complex queries 3. **Drop Mental Model:** Data cleaning and quality management 4. **Sort Mental Model:** Data organization and business logic 5. **Aggregate Mental Model:** Summary statistics and business metrics 6. **Merge Mental Model:** Data integration and quality control 7. **Split-Apply-Combine Mental Model:** Group analysis and advanced operations 8. **Answering A Business Question:** Combining multiple data manipulation techniques to answer a business question
 :::
 
 ### Professional Visualizations (For 100% Grade)
 
 **Your Task:** Create a professional visualization that supports your analysis and demonstrates your understanding of the data.
 
-**Create visualizations showing:**
-- Service level (on-time percentage) by product category
+**Create visualizations showing:** - Service level (on-time percentage) by product category
 
-**Your visualizations should:**
-- Use clear labels and professional formatting
-- Support the insights from your discussion questions
-- Be appropriate for a business audience
-- Do not `echo` the code that creates the visualizations
+```{python}         
+#| label: viz-service-by-category
+#| echo: false
+#| fig-width: 9
+#| fig-height: 7
+import numpy as np
+import matplotlib.pyplot as plt
+from matplotlib.ticker import PercentFormatter
+
+# Shipment-level on-time by category
+ship_cat = (
+    shipments_with_category
+    .dropna(subset=["shipID", "prodCategory"])
+    .groupby(["shipID", "prodCategory"], as_index=False)
+    .agg(any_late=("is_late", "any"))
+)
+
+svc = (
+    ship_cat
+    .groupby("prodCategory", as_index=False)
+    .agg(
+        shipments=("shipID", "size"),
+        on_time_shipments=("any_late", lambda s: (s == False).sum())
+    )
+    .assign(on_time_rate=lambda df: df.on_time_shipments / df.shipments)
+    .sort_values("on_time_rate", ascending=True)
+    .reset_index(drop=True)
+)
+
+overall = svc.on_time_shipments.sum() / svc.shipments.sum()
+colors = np.where(svc.on_time_rate >= overall, "darkorchid", "lightgrey")
+
+plt.style.use("seaborn-v0_8-whitegrid")
+fig, ax = plt.subplots(figsize=(6, 4))
+bars = ax.barh(svc.prodCategory, svc.on_time_rate, color=colors)
+
+ax.set_title("On Time Service Level by Product Category", fontsize=16, fontweight="bold", pad=14)
+ax.set_xlabel("On Time Shipments (%)", fontsize=12)
+ax.set_ylabel("Product Category", fontsize=12)
+ax.xaxis.set_major_formatter(PercentFormatter(1.0))
+ax.set_xlim(0, 1.0)
+ax.axvline(overall, color="black", ls="--", lw=1, alpha=0.6, label=f"Overall Avg: {overall:.0%}")
+ax.legend(loc="lower right", frameon=True)
+ax.grid(axis="x", alpha=0.3)
+
+# Annotate best and worst categories
+vals = svc.on_time_rate.values
+for i in [vals.argmin(), vals.argmax()]:
+    b = bars[i]
+    ax.annotate(f"{vals[i]:.0%}",
+                xy=(b.get_width(), b.get_y() + b.get_height()/2),
+                xytext=(min(0.95, b.get_width() + 0.08), b.get_y() + b.get_height()/2),
+                va="center",
+                color="darkorchid" if vals[i] >= overall else "gray",
+                arrowprops=dict(arrowstyle="->",
+                                color="darkorchid" if vals[i] >= overall else "gray",
+                                lw=1))
+
+plt.tight_layout()
+plt.show()
+```
+
+**Your visualizations should:** - Use clear labels and professional formatting - Support the insights from your discussion questions - Be appropriate for a business audience - Do not `echo` the code that creates the visualizations
 
 ## Challenge Requirements 📋
 
 **Your Primary Task:** Answer all discussion questions for the seven mental models with thoughtful, well-reasoned responses that demonstrate your understanding of data manipulation concepts.
 
-**Key Requirements:**
-- Complete discussion questions for each mental model
-- Demonstrate clear understanding of pandas concepts and data manipulation techniques
-- Write clear, business-focused analysis that explains your findings
+**Key Requirements:** - Complete discussion questions for each mental model - Demonstrate clear understanding of pandas concepts and data manipulation techniques - Write clear, business-focused analysis that explains your findings
 
 ## Getting Started: Repository Setup 🚀
 
-::: {.callout-important}
+::: callout-important
 ## 📁 Getting Started
 
-**Step 1:** Fork and clone this challenge repository
-- Go to the course repository and find the "dataManipulationChallenge" folder
-- Fork it to your GitHub account, or clone it directly
-- Open the cloned repository in Cursor
+**Step 1:** Fork and clone this challenge repository - Go to the course repository and find the "dataManipulationChallenge" folder - Fork it to your GitHub account, or clone it directly - Open the cloned repository in Cursor
 
-**Step 2:** Set up your Python environment
-- Follow the Python setup instructions above (use your existing venv from Tech Setup Challenge Part 2)
-- Make sure your virtual environment is activated and the Python interpreter is set
+**Step 2:** Set up your Python environment - Follow the Python setup instructions above (use your existing venv from Tech Setup Challenge Part 2) - Make sure your virtual environment is activated and the Python interpreter is set
 
 **Step 3:** You're ready to start! The data loading code is already provided in this file.
 
 **Note:** This challenge uses the same `index.qmd` file you're reading right now - you'll edit it to complete your analysis.
 :::
 
-
 ### Getting Started Tips
 
-::: {.callout-note}
+::: callout-note
 ## 🎯 Method Chaining Philosophy
 
 > "Each operation should build naturally on the previous one"
@@ -625,24 +675,24 @@ print(f"Percentage with multiple categories: {multi_category_shipments['shipID']
 *Think of method chaining like building with LEGO blocks - each piece connects to the next, creating something more complex and useful than the individual pieces.*
 :::
 
-::: {.callout-warning}
+::: callout-warning
 ## 💾 Important: Save Your Work Frequently!
 
 **Before you start:** Make sure to commit your work often using the Source Control panel in Cursor (Ctrl+Shift+G or Cmd+Shift+G). This prevents the AI from overwriting your progress and ensures you don't lose your work.
 
 **Commit after each major step:**
 
-- After completing each mental model section
-- After adding your visualizations
-- After completing your advanced method chain
-- Before asking the AI for help with new code
+-   After completing each mental model section
+-   After adding your visualizations
+-   After completing your advanced method chain
+-   Before asking the AI for help with new code
 
 **How to commit:**
 
-1. Open Source Control panel (Ctrl+Shift+G)
-2. Stage your changes (+ button)
-3. Write a descriptive commit message
-4. Click the checkmark to commit
+1.  Open Source Control panel (Ctrl+Shift+G)
+2.  Stage your changes (+ button)
+3.  Write a descriptive commit message
+4.  Click the checkmark to commit
 
 *Remember: Frequent commits are your safety net!*
 :::
@@ -661,45 +711,43 @@ print(f"Percentage with multiple categories: {multi_category_shipments['shipID']
 
 **Minimum Requirements (Required for Any Points):**
 
-- [ ] Created repository named "dataManipulationChallenge" in your GitHub account
-- [ ] Cloned repository locally using Cursor (or VS Code)
-- [ ] Completed discussion questions for at least 5 of the 7 mental models
-- [ ] Document rendered to HTML successfully
-- [ ] HTML files uploaded to your repository
-- [ ] GitHub Pages enabled and working
-- [ ] Site accessible at `https://[your-username].github.io/dataManipulationChallenge/`
+-   [ ] Created repository named "dataManipulationChallenge" in your GitHub account
+-   [ ] Cloned repository locally using Cursor (or VS Code)
+-   [ ] Completed discussion questions for at least 5 of the 7 mental models
+-   [ ] Document rendered to HTML successfully
+-   [ ] HTML files uploaded to your repository
+-   [ ] GitHub Pages enabled and working
+-   [ ] Site accessible at `https://[your-username].github.io/dataManipulationChallenge/`
 
 **75% Grade Requirements:**
 
-- [ ] Complete discussion questions for at least 5 of the 7 mental models
-- [ ] Clear, thoughtful responses that demonstrate understanding
-- [ ] Code examples where appropriate to support explanations
+-   [ ] Complete discussion questions for at least 5 of the 7 mental models
+-   [ ] Clear, thoughtful responses that demonstrate understanding
+-   [ ] Code examples where appropriate to support explanations
 
 **85% Grade Requirements:**
 
-- [ ] Complete discussion questions for all 7 mental models
-- [ ] Comprehensive, well-reasoned responses showing deep understanding
-- [ ] Business context for why concepts matter
-- [ ] Examples of real-world applications
+-   [ ] Complete discussion questions for all 7 mental models
+-   [ ] Comprehensive, well-reasoned responses showing deep understanding
+-   [ ] Business context for why concepts matter
+-   [ ] Examples of real-world applications
 
 **95% Grade Requirements:**
 
-- [ ] Complete discussion questions for all 7 mental models
-- [ ] Complete the "Answering A Business Question" discussion questions
-- [ ] Comprehensive, well-reasoned responses showing deep understanding
-- [ ] Business context for why concepts matter
+-   [ ] Complete discussion questions for all 7 mental models
+-   [ ] Complete the "Answering A Business Question" discussion questions
+-   [ ] Comprehensive, well-reasoned responses showing deep understanding
+-   [ ] Business context for why concepts matter
 
 **100% Grade Requirements:**
 
-- [ ] All discussion questions completed with professional quality
-- [ ] Professional visualization showing service level by product category
-- [ ] Professional presentation style appropriate for business audience
-- [ ] Clear, engaging narrative that tells a compelling story
-- [ ] Practical insights that would help ZappTech's management
+-   [ ] All discussion questions completed with professional quality
+-   [ ] Professional visualization showing service level by product category
+-   [ ] Professional presentation style appropriate for business audience
+-   [ ] Clear, engaging narrative that tells a compelling story
+-   [ ] Practical insights that would help ZappTech's management
 
 **Report Quality (Critical for Higher Grades):**
 
-- [ ] Professional writing style (no AI-generated fluff)
-- [ ] Concise analysis that gets to the point
-
-
+-   [ ] Professional writing style (no AI-generated fluff)
+-   [ ] Concise analysis that gets to the point
